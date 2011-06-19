@@ -8,8 +8,9 @@ Multigrafo::Multigrafo(int size, bool dirigido, QObject *parent):
 
     this->nodos = new Nodo[size];
 
-    this->inicializarMatrices();
 
+    this->inicializarMatrices();
+    this->resetNodos();
 
     srand(time(0));
 }
@@ -17,6 +18,13 @@ Multigrafo::Multigrafo(int size, bool dirigido, QObject *parent):
 Multigrafo::~Multigrafo()
 {
     //falta implementar
+
+}
+
+void Multigrafo::resetNodos()
+{
+    for(int i = 0; i<size; i++)
+        this->nodos[i].pintado=false;
 
 }
 
@@ -291,6 +299,11 @@ void Multigrafo::inicializarMatrices()
            }
         }
     }
+}
+
+void Multigrafo::setNodoPintado(int n, bool sta)
+{
+    this->nodos[n].pintado = sta;
 }
 
 int Multigrafo::getIndexNodo(QString etiqueta)

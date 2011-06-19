@@ -14,8 +14,15 @@ void RenderArea::dibujarNodo(Nodo n,QPainter &P)
     QFontMetrics m(QFont("prueba",11,2,true));
     int x = m.boundingRect(n.etiqueta).width();
     int y = m.boundingRect(n.etiqueta).height();
+
     P.setPen(Qt::black);
-    P.setBrush(color);
+
+    if(n.pintado)
+     P.setBrush(color);
+    else
+     P.setBrush(Qt::white);
+
+
     P.drawRoundRect(n.x,n.y,x,y);
     P.drawText(n.x+15,n.y+15,n.etiqueta);
 }

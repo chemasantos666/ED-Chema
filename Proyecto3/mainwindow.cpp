@@ -62,8 +62,8 @@ void MainWindow::on_actionCargar_Grafo_triggered()
         ta->setItem(i,0,item);
     }
 
-    this->ui->idem->addWidget(ta);
-    table = new QTableWidget(this->consul->mg->getSize(),this->consul->mg->getSize(),this);
+     this->ui->idem->addWidget(ta);
+     table = new QTableWidget(this->consul->mg->getSize(),this->consul->mg->getSize(),this);
      this->ui->gridLayout_floy->addWidget(table);
 
 
@@ -91,14 +91,10 @@ void MainWindow::mostrarFloy()
        }
    }
 
-    this->consul->imprimirCaminos(0,3);
-
 }
 
 void MainWindow::on_btn_MostrarGrafo_clicked()
 {
-    this->render->setDiaHora(this->ui->cb_Dias->currentText().toUpper()
-                             ,this->ui->cb_Hora->currentText().toUpper());
     this->mostrarFloy();
 }
 
@@ -109,20 +105,17 @@ void MainWindow::on_actionAgregar_Arista_triggered()
    QString nodo2;
    double peso;
 
-   nodo1 = insert.getText(this,"Insertar Arista","Ingrese el Nombre del Primer Nodo.").toUpper();
+   nodo1 = insert.getText(this,"Insertar Arista","Ingrese el Nombre del Primer Nodo.").toUpper().trimmed();
 
    if(!nodo1.isEmpty()){
-     nodo2 = insert.getText(this,"Agregar Arista","Ingrese el Nombre del Segundo Nodo.").toUpper();
+     nodo2 = insert.getText(this,"Agregar Arista","Ingrese el Nombre del Segundo Nodo.").toUpper().trimmed();
 
         if(!nodo2.isEmpty())
              peso = insert.getDouble(this,"Agregar Arista","Ingrese el Peso de La Arista",0.1,1);
         else
             return;
-    }else{
+    }else
         return;
-    }
-
-
 
 
    QString dia = this->ui->cb_Dias->currentText().toUpper();
@@ -157,4 +150,38 @@ void MainWindow::on_cb_Hora_textChanged(QString hora )
 {
 
     this->render->setDiaHora(this->ui->cb_Dias->currentText().toUpper(),hora.toUpper());
+}
+
+void MainWindow::on_btn_Consultar_clicked()
+{
+    this->consul->mg->resetNodos();
+    this->ui->te_RutaOptima->clear();
+
+    QString origin = this->ui->le_Origen->text().toUpper().trimmed();
+    QString dest = this->ui->le_Destino->text().toUpper().trimmed();
+    int n1 = this->consul->mg->getIndexNodo(origin);
+    int n2 = this->consul->mg->getIndexNodo(dest);
+
+
+    this->consul->mg->setNodoPintado(n1,true);
+    this->consul->mg->setNodoPintado(n2,true);
+
+    this->consul->getCaminos(n1,n2);
+
+
+    QList<int> caminos = this->consul->getCaminosUsados();
+
+    this->ui->te_RutaOptima->append("La Mejor Ruta Para Llegar a "+dest+" desde "+origin+" es:");
+    this->ui->te_RutaOptima->append(QString("1-")+origin);
+
+    int i;
+
+    for (i = 0; i<caminos.length(); i++)
+        this->ui->te_RutaOptima->append(QString::number(i+2)+"-"+this->consul->mg->getNombreNodo(caminos.at(i)));
+
+    this->ui->te_RutaOptima->append(QString::number(i+2)+"-"+dest);
+    this->ui->te_RutaOptima->append("Con un costo en minutos de:"+this->table->item(n1,n2)->text());
+
+    this->render->update();
+
 }

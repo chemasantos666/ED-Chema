@@ -4,7 +4,6 @@ Consulta::Consulta(QObject *parent) :
     QObject(parent)
 {
 
-
 }
 
 int Consulta::getNNodos(QString path)
@@ -68,6 +67,10 @@ QVector<QVector<float> > Consulta::Floy(QVector<QVector<float> > A)
     for(int i = 0; i<this->mg->getSize(); i++)
         p[i].resize(this->mg->getSize());
 
+    for(int i = 0; i<this->mg->getSize(); i++)
+        for(int j = 0; j<this->mg->getSize(); j++)
+            p[i][j] = -1;
+
 
     for (int k =0; k<this->mg->getSize();k++)
         for (int i =0; i<mg->getSize();i++)
@@ -81,33 +84,36 @@ QVector<QVector<float> > Consulta::Floy(QVector<QVector<float> > A)
                    }
              }
 
-    for(int i = 0; i<this->mg->getSize(); i++)
-        for(int j = 0; j<this->mg->getSize(); j++)
-            qDebug()<<p[i][j];
-
-
     return A;
 
 }
 
-void Consulta::imprimirCaminos(int i, int j)
+void Consulta::getCaminos(int i, int j)
 {
-    qDebug()<<"recuperando caminos";
+
 
     int k;
     k = this->p[i][j];
 
     qDebug()<<"Lo saco y ya esta el camino en K:"<<k;
 
-    if(k==0)
-    {
+    if(k==-1)
      return;
-    }
 
-    this->imprimirCaminos(i,k);
-    qDebug()<<"caminos mas corto de:"<<i<<" a:"<<j<< " usando:" <<k;
-    this->imprimirCaminos(k,j);
 
+    this->getCaminos(i,k);
+    this->mg->setNodoPintado(k,true);
+    this->caminos.push_back(k);
+    this->getCaminos(k,j);
+
+}
+
+QList<int> Consulta::getCaminosUsados()
+{
+    QList<int> temp;
+    temp = this->caminos;
+    this->caminos.clear();
+    return temp;
 }
 
 void Consulta::cargarGrafo(QString path)

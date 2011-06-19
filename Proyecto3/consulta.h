@@ -13,18 +13,19 @@ class Consulta : public QObject
 public:
     explicit Consulta(QObject *parent = 0);
     Multigrafo *mg;
-
+    QList<int> getCaminosUsados();
 
 private:
-     QVector<QVector<float> > p;
+    QList<int> caminos;
     int getNNodos(QString);
     void leerLinea(QString,int&);
-
+    QVector<QVector<float> > p;
 
 signals:
 
 public slots:
-    void imprimirCaminos(int,int);
+
+    void getCaminos(int,int);
     QVector<QVector<float> > Floy(QVector<QVector<float> >);
     void cargarGrafo(QString);
 

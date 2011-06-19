@@ -31,6 +31,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    void on_btn_Consultar_clicked();
     void on_cb_Hora_textChanged(QString );
     void on_cb_Dias_textChanged(QString );
     void on_actionAgregar_Arista_triggered();

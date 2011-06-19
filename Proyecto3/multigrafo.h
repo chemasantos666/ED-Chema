@@ -13,6 +13,7 @@
 class Nodo{
 public:
     int x,y;
+    bool pintado;
     QString etiqueta;
 };
 
@@ -23,6 +24,8 @@ public:
     explicit Multigrafo(int,bool,QObject *parent = 0);
     ~Multigrafo();
     QVector<QVector<float> > getMatriz(QString,QString);
+
+
     static const float INFINITO = 99999.00;
     static const float DELTACOLISION = 25.0;
     static const int INTENTOS_COLISION =2;
@@ -40,6 +43,8 @@ public:
 signals:
 
 public slots:
+    void resetNodos();
+    void setNodoPintado(int,bool);
     void addArista(int, int, QString,QString,float);
     void removerArista(int,int,QString,QString);
     Nodo getNodo(int i);
