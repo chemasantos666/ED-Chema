@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     this->ui->layoutGrafo->addWidget(render);
-
+    this->inhabilitar();
 }
 
 MainWindow::~MainWindow()
@@ -38,13 +38,33 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::habilitar()
+{
+    this->ui->actionAgregar_Arista->setEnabled(true);
+    this->ui->actionRemover_Arista->setEnabled(true);
+    this->ui->btn_Consultar->setEnabled(true);
+    this->ui->cb_Dias->setEnabled(true);
+    this->ui->cb_Hora->setEnabled(true);
+
+}
+
+void MainWindow::inhabilitar()
+{
+    this->ui->actionAgregar_Arista->setDisabled(true);
+    this->ui->actionRemover_Arista->setDisabled(true);
+    this->ui->btn_Consultar->setDisabled(true);
+    this->ui->cb_Dias->setDisabled(true);
+    this->ui->cb_Hora->setDisabled(true);
+}
+
 void MainWindow::on_actionCargar_Grafo_triggered()
 {
+
     QString path = QFileDialog::getOpenFileName(this,"Cargar Grafo","","*.txt");
     if(!path.isEmpty())
     {
         this->consul->cargarGrafo(path);
-    }
+
 
     this->render->setMultiGrafo(consul->mg);
 
@@ -65,7 +85,10 @@ void MainWindow::on_actionCargar_Grafo_triggered()
      this->ui->idem->addWidget(ta);
      table = new QTableWidget(this->consul->mg->getSize(),this->consul->mg->getSize(),this);
      this->ui->gridLayout_floy->addWidget(table);
-
+     this->habilitar();
+     this->mostrarFloy();
+     this->setDiaHora();
+ }
 
 
 }
@@ -91,11 +114,6 @@ void MainWindow::mostrarFloy()
        }
    }
 
-}
-
-void MainWindow::on_btn_MostrarGrafo_clicked()
-{
-    this->mostrarFloy();
 }
 
 void MainWindow::on_actionAgregar_Arista_triggered()
@@ -137,19 +155,25 @@ void MainWindow::on_actionAgregar_Arista_triggered()
   }
 
    this->consul->mg->addArista(n1,n2,dia,hora,(float)peso);
-
+   this->mostrarFloy();
    this->ui->gridLayoutWidget->update();
 }
 
 void MainWindow::on_cb_Dias_textChanged(QString dia )
 {
    this->render->setDiaHora(dia.toUpper(),this->ui->cb_Hora->currentText().toUpper());
+   this->consul->mg->resetNodos();
+   this->mostrarFloy();
+   this->setDiaHora();
 }
 
 void MainWindow::on_cb_Hora_textChanged(QString hora )
 {
 
     this->render->setDiaHora(this->ui->cb_Dias->currentText().toUpper(),hora.toUpper());
+    this->consul->mg->resetNodos();
+    this->mostrarFloy();
+    this->setDiaHora();
 }
 
 void MainWindow::on_btn_Consultar_clicked()
@@ -162,26 +186,69 @@ void MainWindow::on_btn_Consultar_clicked()
     int n1 = this->consul->mg->getIndexNodo(origin);
     int n2 = this->consul->mg->getIndexNodo(dest);
 
+    if(n1 !=-1 && n2 != -1)
+    {
+     this->consul->mg->setNodoPintado(n1,true);
+     this->consul->mg->setNodoPintado(n2,true);
 
-    this->consul->mg->setNodoPintado(n1,true);
-    this->consul->mg->setNodoPintado(n2,true);
 
-    this->consul->getCaminos(n1,n2);
+     if(this->table->item(n1,n2)->text().toInt()!=99999)
+     {
+         this->consul->getCaminos(n1,n2);
+
+         QList<int> caminos = this->consul->getCaminosUsados();
+
+         this->ui->te_RutaOptima->append("La Mejor Ruta Para Llegar a "+dest+" desde "+origin+" en el dia "+this->ui->cb_Dias->currentText()+" en la hora "+
+                                    this->ui->cb_Hora->currentText()+" es:");
+         this->ui->te_RutaOptima->append(QString("1-")+origin);
+
+         int i;
+
+         for (i = 0; i<caminos.length(); i++)
+             this->ui->te_RutaOptima->append(QString::number(i+2)+"-"+this->consul->mg->getNombreNodo(caminos.at(i)));
+
+           this->ui->te_RutaOptima->append(QString::number(i+2)+"-"+dest);
 
 
-    QList<int> caminos = this->consul->getCaminosUsados();
+           this->ui->te_RutaOptima->append("Con un costo en minutos de: "+this->table->item(n1,n2)->text());
+    }else{
+        this->ui->te_RutaOptima->append("Es imposible llegar!!!");
+    }
 
-    this->ui->te_RutaOptima->append("La Mejor Ruta Para Llegar a "+dest+" desde "+origin+" es:");
-    this->ui->te_RutaOptima->append(QString("1-")+origin);
+     this->render->update();
+ }else{
+     QMessageBox::critical(this,"Error","Origen o Destino no Existentes!!!");
+ }
 
-    int i;
+}
 
-    for (i = 0; i<caminos.length(); i++)
-        this->ui->te_RutaOptima->append(QString::number(i+2)+"-"+this->consul->mg->getNombreNodo(caminos.at(i)));
+void MainWindow::setDiaHora()
+{
+    this->ui->lbDia->setText("Grafo para dia:\n"+this->ui->cb_Dias->currentText());
+    this->ui->lbHora->setText("Hora: "+this->ui->cb_Hora->currentText());
+}
 
-    this->ui->te_RutaOptima->append(QString::number(i+2)+"-"+dest);
-    this->ui->te_RutaOptima->append("Con un costo en minutos de:"+this->table->item(n1,n2)->text());
+void MainWindow::on_actionRemover_Arista_triggered()
+{
+    QString ndo2;
 
-    this->render->update();
+    QString ndo1 = QInputDialog::getText(this,"Borra Arista","Ingrese Nombre de Nodo").toUpper().trimmed();
 
+    if(!ndo1.isEmpty())
+     ndo2 = QInputDialog::getText(this,"Borra Arista","Ingrese Nombre de Nodo").toUpper().trimmed();
+
+
+
+    if(!ndo1.isEmpty() && !ndo2.isEmpty())
+    {
+        int n1,n2;
+        n1 = this->consul->mg->getIndexNodo(ndo1);
+        n2 = this->consul->mg->getIndexNodo(ndo2);
+
+        this->consul->mg->removerArista(n1,n2,this->ui->cb_Dias->currentText().toUpper()
+                                        ,this->ui->cb_Hora->currentText().toUpper());
+
+        this->mostrarFloy();
+        this->ui->gridLayoutWidget->update();
+    }
 }

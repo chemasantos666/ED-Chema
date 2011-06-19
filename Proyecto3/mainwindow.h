@@ -31,12 +31,15 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    void on_actionRemover_Arista_triggered();
     void on_btn_Consultar_clicked();
     void on_cb_Hora_textChanged(QString );
     void on_cb_Dias_textChanged(QString );
     void on_actionAgregar_Arista_triggered();
     void mostrarFloy();
-    void on_btn_MostrarGrafo_clicked();
+    void inhabilitar();
+    void habilitar();
+    void setDiaHora();
     void on_actionCargar_Grafo_triggered();
 };
 

@@ -10,8 +10,20 @@
     <height>615</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>944</width>
+    <height>615</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>944</width>
+    <height>615</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Ruta Corta</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="tw_Contenedor">
@@ -80,19 +92,6 @@
          <width>61</width>
          <height>22</height>
         </rect>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btn_MostrarGrafo">
-       <property name="geometry">
-        <rect>
-         <x>11</x>
-         <y>115</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Floy</string>
        </property>
       </widget>
       <widget class="QLabel" name="label">
@@ -231,6 +230,74 @@
         <height>221</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>820</x>
+        <y>10</y>
+        <width>61</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+        <underline>true</underline>
+       </font>
+      </property>
+      <property name="text">
+       <string>Aristas</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbDia">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>40</y>
+        <width>121</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Grafo para dia:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbHora">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>100</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Hora:</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="Floy">
@@ -277,6 +344,7 @@
     </property>
     <addaction name="actionCargar_Grafo"/>
     <addaction name="actionAgregar_Arista"/>
+    <addaction name="actionRemover_Arista"/>
    </widget>
    <addaction name="menu_Archivo"/>
   </widget>
@@ -308,6 +376,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionRemover_Arista">
+   <property name="text">
+    <string>Remover Arista</string>
+   </property>
+   <property name="toolTip">
+    <string>Borra Arista Entre 2 Nodos</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

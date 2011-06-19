@@ -12,6 +12,7 @@ void RenderArea::dibujarNodo(Nodo n,QPainter &P)
 
 
     QFontMetrics m(QFont("prueba",11,2,true));
+
     int x = m.boundingRect(n.etiqueta).width();
     int y = m.boundingRect(n.etiqueta).height();
 
@@ -54,7 +55,7 @@ void RenderArea::paintEvent(QPaintEvent *event)
     painter.setPen( Qt::black ); // La pluma en como vamos a dibujar es negra
     painter.setBrush(Qt::white);
     painter.drawRect(0,0,this->width()-1,this->height()-1);
-    qDebug() << this->height();
+
 
 
 
@@ -75,7 +76,6 @@ void RenderArea::paintEvent(QPaintEvent *event)
                    this->dibujarArista(n,MG->getNodo(j),
                                        MG->getPesoArista(i,j,dia,hora),
                                        painter);
-                    qDebug()<<"DIBUJANDO antes";
                }
             }
             this->dibujarNodo(n,painter);

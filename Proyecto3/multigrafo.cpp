@@ -151,10 +151,15 @@ Nodo Multigrafo::getNodo(int i)
 
 void Multigrafo::removerArista(int n1, int n2, QString dia, QString hora)
 {
+    qDebug()<<"Eliminando arista";
+
 
     if(n1!=n2)
     {
+        qDebug()<<"Paso el if de distinto";
+
         this->multiple[dia][hora][n1][n2] = Multigrafo::INFINITO;
+
         if(!this->dirigido)
             this->multiple[dia][hora][n2][n1] = Multigrafo::INFINITO;
     }

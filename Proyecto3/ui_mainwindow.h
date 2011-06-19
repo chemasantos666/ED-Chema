@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun 19. Jun 01:22:27 2011
+** Created: Sun Jun 19 12:17:06 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -36,6 +36,7 @@ class Ui_MainWindow
 public:
     QAction *actionCargar_Grafo;
     QAction *actionAgregar_Arista;
+    QAction *actionRemover_Arista;
     QWidget *centralWidget;
     QTabWidget *tw_Contenedor;
     QWidget *Multigrafo;
@@ -44,7 +45,6 @@ public:
     QGroupBox *groupBox;
     QComboBox *cb_Dias;
     QComboBox *cb_Hora;
-    QPushButton *btn_MostrarGrafo;
     QLabel *label;
     QLabel *label_2;
     QGroupBox *groupBox_2;
@@ -54,6 +54,9 @@ public:
     QLabel *label_4;
     QPushButton *btn_Consultar;
     QTextEdit *te_RutaOptima;
+    QLabel *label_5;
+    QLabel *lbDia;
+    QLabel *lbHora;
     QWidget *Floy;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout_floy;
@@ -68,10 +71,14 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(944, 615);
+        MainWindow->setMinimumSize(QSize(944, 615));
+        MainWindow->setMaximumSize(QSize(944, 615));
         actionCargar_Grafo = new QAction(MainWindow);
         actionCargar_Grafo->setObjectName(QString::fromUtf8("actionCargar_Grafo"));
         actionAgregar_Arista = new QAction(MainWindow);
         actionAgregar_Arista->setObjectName(QString::fromUtf8("actionAgregar_Arista"));
+        actionRemover_Arista = new QAction(MainWindow);
+        actionRemover_Arista->setObjectName(QString::fromUtf8("actionRemover_Arista"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         tw_Contenedor = new QTabWidget(centralWidget);
@@ -99,9 +106,6 @@ public:
         cb_Hora = new QComboBox(groupBox);
         cb_Hora->setObjectName(QString::fromUtf8("cb_Hora"));
         cb_Hora->setGeometry(QRect(50, 74, 61, 22));
-        btn_MostrarGrafo = new QPushButton(groupBox);
-        btn_MostrarGrafo->setObjectName(QString::fromUtf8("btn_MostrarGrafo"));
-        btn_MostrarGrafo->setGeometry(QRect(11, 115, 75, 23));
         label = new QLabel(groupBox);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(10, 20, 46, 16));
@@ -137,6 +141,28 @@ public:
         te_RutaOptima = new QTextEdit(Multigrafo);
         te_RutaOptima->setObjectName(QString::fromUtf8("te_RutaOptima"));
         te_RutaOptima->setGeometry(QRect(648, 318, 271, 221));
+        QFont font1;
+        font1.setPointSize(10);
+        font1.setBold(true);
+        font1.setWeight(75);
+        te_RutaOptima->setFont(font1);
+        label_5 = new QLabel(Multigrafo);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setGeometry(QRect(820, 10, 61, 16));
+        QFont font2;
+        font2.setPointSize(11);
+        font2.setBold(true);
+        font2.setUnderline(true);
+        font2.setWeight(75);
+        label_5->setFont(font2);
+        lbDia = new QLabel(Multigrafo);
+        lbDia->setObjectName(QString::fromUtf8("lbDia"));
+        lbDia->setGeometry(QRect(800, 40, 121, 41));
+        lbDia->setFont(font);
+        lbHora = new QLabel(Multigrafo);
+        lbHora->setObjectName(QString::fromUtf8("lbHora"));
+        lbHora->setGeometry(QRect(800, 100, 101, 16));
+        lbHora->setFont(font);
         tw_Contenedor->addTab(Multigrafo, QString());
         Floy = new QWidget();
         Floy->setObjectName(QString::fromUtf8("Floy"));
@@ -171,6 +197,7 @@ public:
         menuBar->addAction(menu_Archivo->menuAction());
         menu_Archivo->addAction(actionCargar_Grafo);
         menu_Archivo->addAction(actionAgregar_Arista);
+        menu_Archivo->addAction(actionRemover_Arista);
 
         retranslateUi(MainWindow);
 
@@ -182,7 +209,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Ruta Corta", 0, QApplication::UnicodeUTF8));
         actionCargar_Grafo->setText(QApplication::translate("MainWindow", "Cargar Grafo", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionCargar_Grafo->setToolTip(QApplication::translate("MainWindow", "Carge un grafo", 0, QApplication::UnicodeUTF8));
@@ -193,14 +220,21 @@ public:
         actionAgregar_Arista->setToolTip(QApplication::translate("MainWindow", "Agregar Arista", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         actionAgregar_Arista->setShortcut(QApplication::translate("MainWindow", "Ctrl+A", 0, QApplication::UnicodeUTF8));
+        actionRemover_Arista->setText(QApplication::translate("MainWindow", "Remover Arista", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        actionRemover_Arista->setToolTip(QApplication::translate("MainWindow", "Borra Arista Entre 2 Nodos", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        actionRemover_Arista->setShortcut(QApplication::translate("MainWindow", "Ctrl+D", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("MainWindow", "Filtro", 0, QApplication::UnicodeUTF8));
-        btn_MostrarGrafo->setText(QApplication::translate("MainWindow", "Floy", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Dia", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "Hora", 0, QApplication::UnicodeUTF8));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "Calcular Ruta", 0, QApplication::UnicodeUTF8));
         label_3->setText(QApplication::translate("MainWindow", "Destino", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("MainWindow", "Origen", 0, QApplication::UnicodeUTF8));
         btn_Consultar->setText(QApplication::translate("MainWindow", "Consultar", 0, QApplication::UnicodeUTF8));
+        label_5->setText(QApplication::translate("MainWindow", "Aristas", 0, QApplication::UnicodeUTF8));
+        lbDia->setText(QApplication::translate("MainWindow", "Grafo para dia:", 0, QApplication::UnicodeUTF8));
+        lbHora->setText(QApplication::translate("MainWindow", "Hora:", 0, QApplication::UnicodeUTF8));
         tw_Contenedor->setTabText(tw_Contenedor->indexOf(Multigrafo), QApplication::translate("MainWindow", "Multigrafo", 0, QApplication::UnicodeUTF8));
         tw_Contenedor->setTabText(tw_Contenedor->indexOf(Floy), QApplication::translate("MainWindow", "Floy", 0, QApplication::UnicodeUTF8));
         menu_Archivo->setTitle(QApplication::translate("MainWindow", "&Archivo", 0, QApplication::UnicodeUTF8));
