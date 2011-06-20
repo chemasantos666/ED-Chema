@@ -14,11 +14,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     graficadora.cpp \
-    calculadora.cpp
+    calculadora.cpp \
+    renderarea.cpp
 
 HEADERS  += mainwindow.h \
     graficadora.h \
-    calculadora.h
+    calculadora.h \
+    renderarea.h
 
 FORMS    += mainwindow.ui \
     graficadora.ui

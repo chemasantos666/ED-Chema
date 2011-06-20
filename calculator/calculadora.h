@@ -6,13 +6,15 @@
 #include <QMap>
 #include <QDebug>
 #include <cmath>
-
+#include <QPoint>
+#include <QStringList>
 class Calculadora : public QObject
 {
     Q_OBJECT
 public:
-    void evaluarEcuacion(QString,int,int);
+
     explicit Calculadora(QObject *parent = 0);
+    QVector<QPointF> evaluarEcuacion(QString,int,int);
     QMap<int,double> obtenerTabla();
 
     double evaluarFuncionEn(int,QString);
@@ -27,15 +29,15 @@ private:
 private slots:
 
     QString meterVariable(QString);
-    QString tokens(QString,int&);
+    QString tokens(QString,int&,bool);
     int priority(QString);
     bool validate(QString);
-    double evaluar(QString);
+    double evaluar(QString,bool);
     double calcularUnarios(double,QString);
     double calcular(double,double,QChar);
     bool isOperator(QString);
 
-    QString toPostFijo(QString);
+    QString toPostFijo(QString,bool);
     QString realizarOperaciones(QString);
 
 signals:
@@ -43,6 +45,8 @@ signals:
 
 public slots:
    QString parseComand(QString);
+   QStringList getVariables();
+   double getValorVariable(QString);
 };
 
 #endif // CALCULADORA_H

@@ -46,6 +46,7 @@ public slots:
 
     QStringList solveSoup();
     void loadSoup(QString);
+    void setLimite(int);
 
 };
 

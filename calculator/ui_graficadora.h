@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'graficadora.ui'
 **
-** Created: Wed 8. Jun 16:25:36 2011
+** Created: Mon 20. Jun 11:37:26 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -45,6 +45,7 @@ public:
     QLabel *label_4;
     QLabel *label_5;
     QLabel *label_8;
+    QPushButton *btn_salir;
     QMenuBar *menubar;
 
     void setupUi(QMainWindow *Graficadora)
@@ -110,6 +111,9 @@ public:
         label_8->setObjectName(QString::fromUtf8("label_8"));
         label_8->setGeometry(QRect(766, 10, 21, 21));
         label_8->setFont(font1);
+        btn_salir = new QPushButton(centralwidget);
+        btn_salir->setObjectName(QString::fromUtf8("btn_salir"));
+        btn_salir->setGeometry(QRect(670, 420, 75, 23));
         Graficadora->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Graficadora);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -132,6 +136,7 @@ public:
         label_4->setText(QApplication::translate("Graficadora", "F(X)=", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("Graficadora", "X", 0, QApplication::UnicodeUTF8));
         label_8->setText(QApplication::translate("Graficadora", "Y", 0, QApplication::UnicodeUTF8));
+        btn_salir->setText(QApplication::translate("Graficadora", "Salir", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

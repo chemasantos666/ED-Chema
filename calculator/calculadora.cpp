@@ -16,8 +16,8 @@ QString Calculadora::realizarOperaciones(QString ecuacion)
 
     if(this->validate(ecuacion))
     {
-       ecuacionPostfijo = this->toPostFijo(ecuacion);
-        resultado.setNum(this->evaluar(ecuacionPostfijo));
+       ecuacionPostfijo = this->toPostFijo(ecuacion,false);
+        resultado.setNum(this->evaluar(ecuacionPostfijo,false));
     }
     else{
 
@@ -28,7 +28,7 @@ QString Calculadora::realizarOperaciones(QString ecuacion)
     return resultado;
 }
 
-QString Calculadora::toPostFijo(QString ecua)
+QString Calculadora::toPostFijo(QString ecua,bool sta)
 {
     QString postFijo;
 
@@ -39,7 +39,7 @@ QString Calculadora::toPostFijo(QString ecua)
     {
         for(int i = 0; i<ecua.length(); i++) //leer la ecuacion de izquierda a derecha
         {
-            QString opeAc = this->tokens(ecua,i); //devuelve el siguiente token
+            QString opeAc = this->tokens(ecua,i,sta); //devuelve el siguiente token
 
                 qDebug()<<"Token Infijo->PostFijo: "<<opeAc;
 
@@ -97,29 +97,52 @@ QMap<int,double> Calculadora::obtenerTabla()
     return this->tablitaValores;
 }
 
+double Calculadora::getValorVariable(QString va)
+{
+    return this->variables.value(va);
+}
+
+QStringList Calculadora::getVariables()
+{
+    QList<QString> list = this->variables.keys();
+    qDebug()<<"Numero variables: "<<list.length();
+    QStringList l(list);
+    qDebug()<<"Numero variables en QListString:"<<l.length();
+    return l;
+
+}
+
 
 double Calculadora::evaluarFuncionEn(int valorX,QString funcion)
 {
     if(this->validate(funcion))
     {
         QString temp = funcion.replace('X',QString().setNum(valorX));
-        return this->evaluar(this->toPostFijo(temp));
+        return this->evaluar(this->toPostFijo(temp,true),true);
     }
 
     return -1;
 }
 
-void Calculadora::evaluarEcuacion(QString ecua,int comienzo,int final)
+QVector<QPointF> Calculadora::evaluarEcuacion(QString ecua,int comienzo,int final)
 {
+    this->tablitaValores.clear();
+
+    QVector<QPointF> puntos;
+
     if(this->validate(ecua))
     {
         for(int j = comienzo; j<=final;j++)
         {
            QString temp = ecua;
+
            temp.replace('X',QString().setNum(j));
-           this->tablitaValores[j]=this->evaluar(toPostFijo(temp));
+           this->tablitaValores[j] = this->evaluar(toPostFijo(temp,true),true);
+           puntos.push_back(QPointF(j,-this->evaluar(toPostFijo(temp,true),true)));
         }
     }
+
+    return puntos;
 }
 
 int Calculadora::priority(QString ch)
@@ -165,7 +188,7 @@ double Calculadora::calcular(double n1, double n2, QChar oper)
 }
 
 
-double Calculadora::evaluar(QString postFijo)
+double Calculadora::evaluar(QString postFijo,bool sta)
 {
     double x,y;
 
@@ -175,7 +198,7 @@ double Calculadora::evaluar(QString postFijo)
     while(postFijo.at(i)!= 'x')
     {
 
-        QString act = this->tokens(postFijo,i);
+        QString act = this->tokens(postFijo,i,sta);
 
         if(!isOperator(act) && act!=","){
             qDebug()<<"Numero que se metio a la pila"<<act.toDouble();
@@ -205,20 +228,41 @@ double Calculadora::evaluar(QString postFijo)
 
     return evaluarPila.pop();
 }
-QString Calculadora::tokens(QString infijo, int &i)
+
+
+QString Calculadora::tokens(QString infijo, int &i,bool sta)
 {
     QString token;
 
-        while((infijo.at(i).isNumber()||infijo.at(i)=='.'||infijo.at(i)=='S'||infijo.at(i)=='I'||infijo.at(i)=='N'||infijo.at(i)=='O'||infijo.at(i)=='C')
+    if(sta){
+
+        while((infijo.at(i)=='-'||infijo.at(i).isNumber()||infijo.at(i)=='.'||infijo.at(i)=='S'||infijo.at(i)=='I'||infijo.at(i)=='N'||infijo.at(i)=='O'||infijo.at(i)=='C')
              && (infijo.at(i+1)=='C'||infijo.at(i+1)=='O'||infijo.at(i+1)=='S'||infijo.at(i+1)=='I'||infijo.at(i+1)=='N'||infijo.at(i+1)=='.' || infijo.at(i+1).isNumber())
              && i<infijo.length()-1)
         {
             token.push_back(infijo.at(i));
             i++;
         }
+
         token.push_back(infijo.at(i));
         qDebug()<<"Tokenizando"<<token;
         qDebug()<<"valor de i:"<<i;
+
+  }else{
+      while((infijo.at(i).isNumber()||infijo.at(i)=='.'||infijo.at(i)=='S'||infijo.at(i)=='I'||infijo.at(i)=='N'||infijo.at(i)=='O'||infijo.at(i)=='C')
+           && (infijo.at(i+1)=='C'||infijo.at(i+1)=='O'||infijo.at(i+1)=='S'||infijo.at(i+1)=='I'||infijo.at(i+1)=='N'||infijo.at(i+1)=='.' || infijo.at(i+1).isNumber())
+           && i<infijo.length()-1)
+      {
+          token.push_back(infijo.at(i));
+          i++;
+      }
+
+      token.push_back(infijo.at(i));
+      qDebug()<<"Tokenizando"<<token;
+      qDebug()<<"valor de i:"<<i;
+
+  }
+
    return token;
 }
 
@@ -328,7 +372,7 @@ QString Calculadora::meterVariable(QString comando)
     {
         if(!this->variables.contains(variable))
         {
-            this->variables[variable] = this->evaluar(this->toPostFijo(Operacion));
+            this->variables[variable] = this->evaluar(this->toPostFijo(Operacion,false),false);
             qDebug()<<"Valor de:"<<variable<<this->variables.value(variable);
             return QString("Variable Def.");
         }

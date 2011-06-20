@@ -164,6 +164,7 @@ void MainWindow::on_cb_Dias_textChanged(QString dia )
    this->render->setDiaHora(dia.toUpper(),this->ui->cb_Hora->currentText().toUpper());
    this->consul->mg->resetNodos();
    this->mostrarFloy();
+   this->ui->te_RutaOptima->clear();
    this->setDiaHora();
 }
 
@@ -173,6 +174,7 @@ void MainWindow::on_cb_Hora_textChanged(QString hora )
     this->render->setDiaHora(this->ui->cb_Dias->currentText().toUpper(),hora.toUpper());
     this->consul->mg->resetNodos();
     this->mostrarFloy();
+    this->ui->te_RutaOptima->clear();
     this->setDiaHora();
 }
 

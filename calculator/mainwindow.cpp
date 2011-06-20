@@ -7,8 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->ui->te_Show->setAlignment(Qt::AlignRight);
-   // g.show();
- //   connect(&this->calcu,SIGNAL(sintaxError(bool)),this,SLOT(presentarError(bool)));
+    connect(this->ui->cb_Variables,SIGNAL(currentIndexChanged(QString)),this,SLOT(on_cb_Variables_currentIndexChanged(QString)));
 
 }
 
@@ -29,6 +28,9 @@ void MainWindow::on_btn_Evaluate_clicked()
         this->presentarError();
     else
        this->ui->te_Show->append(resultado);
+
+    this->ui->cb_Variables->clear();
+    this->ui->cb_Variables->addItems(this->calcu.getVariables());
 }
 
 
@@ -48,4 +50,15 @@ void MainWindow::presentarError()
 void MainWindow::on_actionGraficar_triggered()
 {
     this->g.show();
+}
+
+void MainWindow::on_le_inEcuation_returnPressed()
+{
+    if(!this->ui->le_inEcuation->text().isEmpty())
+        this->on_btn_Evaluate_clicked();
+}
+
+void MainWindow::on_cb_Variables_currentIndexChanged(QString k )
+{
+    this->ui->le_valorVariable->setText(QString::number(this->calcu.getValorVariable(k)));
 }

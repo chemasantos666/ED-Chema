@@ -197,6 +197,7 @@
     </property>
     <addaction name="actionCargarDiccionario"/>
     <addaction name="actionCargarSopa"/>
+    <addaction name="actionLimite"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -228,6 +229,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionLimite">
+   <property name="text">
+    <string>Limite</string>
+   </property>
+   <property name="toolTip">
+    <string>Limite Minimo de Letras en La Palabra</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>

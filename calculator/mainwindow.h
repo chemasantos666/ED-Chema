@@ -26,6 +26,8 @@ private:
 
 private slots:
 
+    void on_cb_Variables_currentIndexChanged(QString );
+    void on_le_inEcuation_returnPressed();
     void on_actionGraficar_triggered();
     void presentarError();
     void on_btn_Evaluate_clicked();

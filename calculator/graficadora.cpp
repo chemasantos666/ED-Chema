@@ -7,35 +7,13 @@ Graficadora::Graficadora(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->render = new RenderArea(this);
 
+    this->table = new QTableWidget(this);
+    this->ui->gridTablita->addWidget(this->table);
 
-    this->scene.setSceneRect(0,0,600,500);
-    this->scene.addRect(0,0,600,500);
-
-
-
-
-    /*
-    for (int i = 0; i<100; i++)
-    {
-        qDebug()<< 247-((i*i)/500);
-
-        scene.addEllipse((i+Graficadora::ORIGEN_X),247-((i*i)/100),1,1,QPen(Qt::red));
-        scene.addEllipse((Graficadora::ORIGEN_X-i),247-((i*i)/100),1,1,QPen(Qt::red));
-    }
-    */
-
-
-
-
-
-    this->view = new QGraphicsView(&scene);
-    this->construirEjes(this->scene);
-    this->scene.setBackgroundBrush(QBrush(Qt::darkGray));
-
-
-    this->ui->gridLayout->addWidget(this->view);
-
+    this->ui->gridLayout->addWidget(this->render);
+    this->ui->gridLayout->update();
 }
 
 double Graficadora::siguientePunto(int x)
@@ -52,49 +30,38 @@ Graficadora::~Graficadora()
 void Graficadora::graficar(QMap<int, double> tablaDeValores)
 {
 
-    int cantidadPuntos = tablaDeValores.count(); //cantidad de puntos a graficar
+    int cantidadPuntos = tablaDeValores.count();
 
     int xMin = this->ui->le_De->text().toInt();
     int xMax = this->ui->le_A->text().toInt();
 
-    int escalaX = ((this->scene.height()/xMax))/(xMax-xMin);
-
-    qDebug()<<"Valor de la Escala: "<<escalaX;
-
-
-    for(int i = xMin;i<=escalaX*this->ORIGEN_Y; i+escalaX)
-    {
-
-            this->scene.addEllipse(i+this->ORIGEN_X,this->ORIGEN_Y-(this->siguientePunto(i)/this->ORIGEN_Y),1,1,QPen(Qt::red));
-
-            this->scene.addEllipse(this->ORIGEN_X-i,this->ORIGEN_Y-(this->siguientePunto(i)/this->ORIGEN_Y),1,1,QPen(Qt::red));
-    }
-
-    this->view->update();
 }
+
 
 void Graficadora::llenarTabla(QMap<int, double> tablita)
 {
+    this->table->clear();
 
     int De = this->ui->le_De->text().toInt();
     int A = this->ui->le_A->text().toInt();
 
     int fila = 0;
     int columna = 0;
-    qDebug()<<"Antes de crear el tempTable";
+
     QHeaderView *view = new QHeaderView(Qt::Horizontal);
 
+    this->table->setRowCount((A-De)+1);
+    this->table->setColumnCount(2);
     view->setDefaultSectionSize(60);
     view->setVisible(false);
 
-    QTableWidget *tempTable = new QTableWidget((A-De)+1,2,this);
 
-    tempTable->setHorizontalHeader(view);
+    this->table->setHorizontalHeader(view);
 
     QHeaderView *vview = new QHeaderView(Qt::Vertical);
            vview->setVisible(false);
 
-           tempTable->setVerticalHeader(vview);
+           this->table->setVerticalHeader(vview);
 
 
 
@@ -102,24 +69,17 @@ void Graficadora::llenarTabla(QMap<int, double> tablita)
     {
        columna = 0;
       QTableWidgetItem * y = new QTableWidgetItem(QString().setNum(tablita.value(i)));
-      qDebug()<<"Y="<<y->text();
-      QTableWidgetItem * x = new QTableWidgetItem(QString().setNum(tablita.key(y->text().toDouble())));
-      qDebug()<<"X="<<x->text();
 
-      tempTable->setItem(fila,columna++,x);
-      tempTable->setItem(fila++,columna,y);
+      QTableWidgetItem * x = new QTableWidgetItem(QString().setNum(i));
 
-      qDebug()<<"Agregando al TAble";
+      this->table->setItem(fila,columna++,x);
+      this->table->setItem(fila++,columna,y);
+
+
 
     }
-    this->ui->gridTablita->addWidget(tempTable);
 
-}
 
-void Graficadora::construirEjes(QGraphicsScene & scene)
-{
-    scene.addLine(this->ORIGEN_X,0,this->ORIGEN_X,this->scene.height(),QPen(Qt::red));
-    scene.addLine(0,this->ORIGEN_Y,this->scene.width(),this->ORIGEN_Y,QPen(Qt::red));
 }
 
 
@@ -128,10 +88,29 @@ void Graficadora::on_btn_graficar_clicked()
 {
     qDebug()<<this->ui->le_ecuacion->text().toUpper();
     this->funcion = this->ui->le_ecuacion->text().trimmed().toUpper();
+    int de = this->ui->le_De->text().toInt();
+    int a = this->ui->le_A->text().toInt();
 
-    this->calc.evaluarEcuacion(this->ui->le_ecuacion->text().trimmed().toUpper(),this->ui->le_De->text().toInt()
-                               ,this->ui->le_A->text().toInt());
+   QVector<QPointF> puntos =  this->calc.evaluarEcuacion(this->ui->le_ecuacion->text().trimmed().toUpper(),de,a);
 
+   float scalex = abs(a)+abs(de);
+   float scaley = puntos.at(puntos.size()-1).y() + puntos.at(0).y();
+   this->render->setScale(scalex,scalex);
+
+
+   this->render->graficarEasy(puntos);
    this->llenarTabla(this->calc.obtenerTabla());
-    this->graficar(this->calc.obtenerTabla());
+
+    this->render->update();
+}
+
+void Graficadora::on_btn_salir_clicked()
+{
+    QVector<QPointF> f;
+    this->render->graficarEasy(f);
+    this->table->clear();
+    this->ui->le_A->clear();
+    this->ui->le_De->clear();
+    this->ui->le_ecuacion->clear();
+    this->close();
 }

@@ -36,7 +36,7 @@ void Consulta::leerLinea(QString linea,int& i)
 
     if(linea.at(0)=='-')
     {
-         nodo = linea.split(",");
+        nodo = linea.split(",",QString::SkipEmptyParts);
          nombre = nodo.at(0);
          nombre = nombre.mid(nombre.indexOf("-")+1);
          posX = nodo.at(1);

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Thu 9. Jun 22:52:42 2011
+** Created: Mon 20. Jun 12:26:06 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -33,6 +33,7 @@ class Ui_MainWindow
 public:
     QAction *actionCargarDiccionario;
     QAction *actionCargarSopa;
+    QAction *actionLimite;
     QWidget *centralWidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
@@ -63,6 +64,8 @@ public:
         actionCargarDiccionario->setObjectName(QString::fromUtf8("actionCargarDiccionario"));
         actionCargarSopa = new QAction(MainWindow);
         actionCargarSopa->setObjectName(QString::fromUtf8("actionCargarSopa"));
+        actionLimite = new QAction(MainWindow);
+        actionLimite->setObjectName(QString::fromUtf8("actionLimite"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayoutWidget = new QWidget(centralWidget);
@@ -149,6 +152,7 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuFile->addAction(actionCargarDiccionario);
         menuFile->addAction(actionCargarSopa);
+        menuFile->addAction(actionLimite);
 
         retranslateUi(MainWindow);
 
@@ -168,6 +172,11 @@ public:
         actionCargarSopa->setToolTip(QApplication::translate("MainWindow", "Elija una Sopa", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         actionCargarSopa->setShortcut(QApplication::translate("MainWindow", "Ctrl+F", 0, QApplication::UnicodeUTF8));
+        actionLimite->setText(QApplication::translate("MainWindow", "Limite", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        actionLimite->setToolTip(QApplication::translate("MainWindow", "Limite Minimo de Letras en La Palabra", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        actionLimite->setShortcut(QApplication::translate("MainWindow", "Ctrl+L", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Palabras Encontradas", 0, QApplication::UnicodeUTF8));
         Resolver->setText(QApplication::translate("MainWindow", "Resolver ", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "Tiempo: ", 0, QApplication::UnicodeUTF8));

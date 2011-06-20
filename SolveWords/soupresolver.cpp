@@ -13,6 +13,11 @@ SoupResolver::~SoupResolver()
 
 }
 
+void SoupResolver::setLimite(int d)
+{
+    this->limite = d;
+}
+
 void SoupResolver::loadSoup(QString path)
 {
     QFile file(path);

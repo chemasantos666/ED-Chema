@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun Jun 19 12:17:06 2011
+** Created: Mon 20. Jun 12:06:05 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -57,7 +57,7 @@ public:
     QLabel *label_5;
     QLabel *lbDia;
     QLabel *lbHora;
-    QWidget *Floy;
+    QWidget *Floyd;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout_floy;
     QWidget *gridLayoutWidget_3;
@@ -164,9 +164,9 @@ public:
         lbHora->setGeometry(QRect(800, 100, 101, 16));
         lbHora->setFont(font);
         tw_Contenedor->addTab(Multigrafo, QString());
-        Floy = new QWidget();
-        Floy->setObjectName(QString::fromUtf8("Floy"));
-        gridLayoutWidget = new QWidget(Floy);
+        Floyd = new QWidget();
+        Floyd->setObjectName(QString::fromUtf8("Floyd"));
+        gridLayoutWidget = new QWidget(Floyd);
         gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(10, 10, 541, 451));
         gridLayout_floy = new QGridLayout(gridLayoutWidget);
@@ -174,7 +174,7 @@ public:
         gridLayout_floy->setContentsMargins(11, 11, 11, 11);
         gridLayout_floy->setObjectName(QString::fromUtf8("gridLayout_floy"));
         gridLayout_floy->setContentsMargins(0, 0, 0, 0);
-        gridLayoutWidget_3 = new QWidget(Floy);
+        gridLayoutWidget_3 = new QWidget(Floyd);
         gridLayoutWidget_3->setObjectName(QString::fromUtf8("gridLayoutWidget_3"));
         gridLayoutWidget_3->setGeometry(QRect(580, 10, 160, 451));
         idem = new QGridLayout(gridLayoutWidget_3);
@@ -182,7 +182,7 @@ public:
         idem->setContentsMargins(11, 11, 11, 11);
         idem->setObjectName(QString::fromUtf8("idem"));
         idem->setContentsMargins(0, 0, 0, 0);
-        tw_Contenedor->addTab(Floy, QString());
+        tw_Contenedor->addTab(Floyd, QString());
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -201,7 +201,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tw_Contenedor->setCurrentIndex(0);
+        tw_Contenedor->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -236,7 +236,7 @@ public:
         lbDia->setText(QApplication::translate("MainWindow", "Grafo para dia:", 0, QApplication::UnicodeUTF8));
         lbHora->setText(QApplication::translate("MainWindow", "Hora:", 0, QApplication::UnicodeUTF8));
         tw_Contenedor->setTabText(tw_Contenedor->indexOf(Multigrafo), QApplication::translate("MainWindow", "Multigrafo", 0, QApplication::UnicodeUTF8));
-        tw_Contenedor->setTabText(tw_Contenedor->indexOf(Floy), QApplication::translate("MainWindow", "Floy", 0, QApplication::UnicodeUTF8));
+        tw_Contenedor->setTabText(tw_Contenedor->indexOf(Floyd), QApplication::translate("MainWindow", "Floyd", 0, QApplication::UnicodeUTF8));
         menu_Archivo->setTitle(QApplication::translate("MainWindow", "&Archivo", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

@@ -59,6 +59,8 @@ void RenderArea::paintEvent(QPaintEvent *event)
 
 
 
+
+
     if(!this->dia.isEmpty() && !this->hora.isEmpty()){
     //TODO : Logica para pintar el grafo
    for (int i=0;i<MG->getSize();i++)  

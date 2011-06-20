@@ -10,6 +10,7 @@
 #include <QChar>
 #include <QMessageBox>
 #include <QHeaderView>
+#include <QInputDialog>
 
 namespace Ui {
     class MainWindow;
@@ -34,6 +35,7 @@ private:
     int contadorPintadas;
 
 private slots:
+    void on_actionLimite_triggered();
     void on_btn_reset_clicked();
     void mostrarDiccionario();
     void pintar(QList<QPoint>);

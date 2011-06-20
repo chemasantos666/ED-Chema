@@ -131,6 +131,7 @@ void MainWindow::on_Resolver_clicked()
 
 void MainWindow::pintar(QList<QPoint> puntos)
 {
+    this->soup->reset();
     this->contadorPintadas++;
 
     for(int i = 0; i<puntos.length(); i++)
@@ -141,4 +142,14 @@ void MainWindow::pintar(QList<QPoint> puntos)
 void MainWindow::on_btn_reset_clicked()
 {
     this->clean();
+}
+
+void MainWindow::on_actionLimite_triggered()
+{
+    if(this->soupLoaded && this->dictioLoaded){
+        int limite = QInputDialog::getInt(this,"Limite","Elija el Limite de caracteres que las palabras\ntendra!!!",2,2);
+        this->logical->setLimite(limite);
+    }else{
+        QMessageBox::critical(this,"Error","No se a Cargado Nada!!!");
+    }
 }

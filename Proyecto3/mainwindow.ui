@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Multigrafo">
      <attribute name="title">
@@ -300,9 +300,9 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="Floy">
+    <widget class="QWidget" name="Floyd">
      <attribute name="title">
-      <string>Floy</string>
+      <string>Floyd</string>
      </attribute>
      <widget class="QWidget" name="gridLayoutWidget">
       <property name="geometry">
