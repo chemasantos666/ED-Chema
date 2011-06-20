@@ -33,7 +33,7 @@ private slots:
     int priority(QString);
     bool validate(QString);
     double evaluar(QString,bool);
-    double calcularUnarios(double,QString);
+    long calcularUnarios(double,QString);
     double calcular(double,double,QChar);
     bool isOperator(QString);
 

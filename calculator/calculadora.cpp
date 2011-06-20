@@ -156,13 +156,18 @@ int Calculadora::priority(QString ch)
     return -1;
 }
 
-double Calculadora::calcularUnarios(double n, QString oper)
+#define PI 3.14159265
+
+long Calculadora::calcularUnarios(double n, QString oper)
 {
-    double resultado = 0;
+
+    long double resultado = 0;
+
     if(oper == "SIN")
        resultado = sin(n);
     if(oper == "COS")
        resultado = cos(n);
+
     return resultado;
 }
 
