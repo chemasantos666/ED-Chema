@@ -1,0 +1,13 @@
+[nodo]
+-unitec,100,100
+-palenque,200,100
+-seguro,100,300
+-catolica,200,400
+-pollo gol,300,400
+[arista]
+lunes,8-9,unitec,palenque,5
+lunes,8-9,palenque,seguro,10
+lunes,8-9,seguro,catolica,15
+lunes,8-9,unitec,catolica,20
+lunes,8-9,seguro,palenque,30
+lunes,8-9,unitec,seguro,20

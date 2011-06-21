@@ -1,0 +1,80 @@
+[nodo]
+-Unitec,150,100
+-Mall Galerias,300,300
+-Los Castaños,400,150
+-Colonial,300,400
+-La Antorcha,100,200
+-Fiesta Club,100,320
+-UNAH,450,400
+-City,10,40
+-Terminal,30,100
+-casa steven,500,100
+[arista]
+LUNES,0-1,unitec,los castaños,5
+Lunes,0-1,los castaños,mall galerias,20
+Lunes,0-1,colonial,la antorcha,150
+Lunes,0-1,la antorcha,mall galerias,15
+LUNES,1-2,unitec,los castaños,5
+Lunes,1-2,los castaños,mall galerias,20
+Lunes,1-2,colonial,la antorcha,150
+Lunes,1-2,la antorcha,mall galerias,15
+LUNES,2-3,unitec,los castaños,5
+Lunes,2-3,los castaños,mall galerias,20
+Lunes,2-3,colonial,la antorcha,150
+Lunes,2-3,la antorcha,mall galerias,40
+LUNES,3-4,unitec,los castaños,5
+Lunes,3-4,los castaños,mall galerias,20
+Lunes,3-4,colonial,la antorcha,150
+Lunes,3-4,la antorcha,mall galerias,40
+LUNES,4-5,unitec,los castaños,5
+Lunes,4-5,los castaños,mall galerias,20
+Lunes,4-5,colonial,la antorcha,150
+Lunes,4-5,la antorcha,mall galerias,40
+LUNES,5-6,unitec,los castaños,5
+Lunes,5-6,los castaños,mall galerias,20
+Lunes,5-6,colonial,la antorcha,150
+Lunes,5-6,la antorcha,mall galerias,40
+LUNES,6-7,unitec,los castaños,50
+Lunes,6-7,los castaños,mall galerias,30
+Lunes,6-7,colonial,la antorcha,60
+Lunes,6-7,la antorcha,mall galerias,50
+LUNES,7-8,unitec,los castaños,5
+Lunes,7-8,los castaños,mall galerias,20
+Lunes,7-8,colonial,la antorcha,150
+Lunes,7-8,la antorcha,mall galerias,40
+LUNES,8-9,unitec,los castaños,5
+Lunes,8-9,los castaños,mall galerias,20
+Lunes,8-9,colonial,la antorcha,150
+Lunes,8-9,la antorcha,mall galerias,40
+LUNES,9-10,unitec,los castaños,5
+Lunes,9-10,los castaños,mall galerias,20
+Lunes,9-10,colonial,la antorcha,150
+Lunes,9-10,la antorcha,mall galerias,40
+LUNES,10-11,unitec,los castaños,5
+Lunes,10-11,los castaños,mall galerias,20
+Lunes,10-11,colonial,la antorcha,150
+Lunes,10-11,la antorcha,mall galerias,40
+Martes,8-9,unitec,los castaños,5
+Martes,10-11,los castaños,mall galerias,20
+Martes,12-13,colonial,la antorcha,40
+Martes,12-13,la antorcha,mall galerias,15
+Miercoles,8-9,unitec,los castaños,5
+Miercoles,10-11,los castaños,mall galerias,20
+Miercoles,11-12,colonial,la antorcha,30
+Miercoles,12-13,la antorcha,mall galerias,15
+Jueves,8-9,unitec,los castaños,5
+Jueves,10-11,los castaños,mall galerias,20
+Jueves,11-12,colonial,la antorcha,30
+Jueves,12-13,la antorcha,mall galerias,15
+Viernes,8-9,unitec,los castaños,5
+Viernes,10-11,los castaños,mall galerias,20
+Viernes,11-12,colonial,la antorcha,30
+Viernes,12-13,la antorcha,mall galerias,15
+Sabado,8-9,unitec,los castaños,5
+Sabado,10-11,los castaños,mall galerias,20
+Sabado,11-12,colonial,la antorcha,30
+Sabado,12-13,la antorcha,mall galerias,15
+Domingo,8-9,unitec,los castaños,5
+Domingo,10-11,los castaños,mall galerias,20
+Domingo,11-12,colonial,la antorcha,150
+Domingo,12-13,la antorcha,mall galerias,15
