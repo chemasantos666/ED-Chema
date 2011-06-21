@@ -158,10 +158,10 @@ int Calculadora::priority(QString ch)
 
 #define PI 3.14159265
 
-long Calculadora::calcularUnarios(double n, QString oper)
+double Calculadora::calcularUnarios(double n, QString oper)
 {
 
-    long double resultado = 0;
+    double resultado = 0;
 
     if(oper == "SIN")
        resultado = sin(n);
